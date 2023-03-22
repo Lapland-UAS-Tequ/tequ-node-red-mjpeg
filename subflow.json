@@ -38,7 +38,7 @@
         },
         {
             "x": 1200,
-            "y": 260,
+            "y": 300,
             "wires": [
                 {
                     "id": "785ed00d72be5825",
@@ -220,6 +220,7 @@
         "version": "0.0.1",
         "author": "juha.autioniemi@lapinamk.fi",
         "desc": "Provides MJPEG data stream to [AI] Detect subflows.",
+        "keywords": "tequ-ai",
         "license": "MIT"
     },
     "color": "#A6BBCF",
@@ -234,7 +235,7 @@
     "icon": "font-awesome/fa-video-camera",
     "status": {
         "x": 1120,
-        "y": 320,
+        "y": 360,
         "wires": [
             {
                 "id": "b0f9cc90ac771f30",
@@ -247,7 +248,7 @@
             "id": "dc2a83762d1d2cf4",
             "type": "multipart-decoder",
             "z": "0c6e27962f6a2d15",
-            "name": "Datasource",
+            "name": "",
             "ret": "bin",
             "url": "",
             "tls": "",
@@ -256,7 +257,7 @@
             "maximum": "2000000",
             "blockSize": 1,
             "enableLog": "off",
-            "x": 310,
+            "x": 330,
             "y": 200,
             "wires": [
                 [
@@ -282,7 +283,7 @@
                 [
                     "e5814f3dc077582b",
                     "d747c1a3f852d5d5",
-                    "6b3319b437c49d57"
+                    "6eb1a540bff11def"
                 ],
                 [
                     "9d72a5e58809bd62"
@@ -446,9 +447,11 @@
             "op2type": "date",
             "duration": "5",
             "extend": false,
+            "overrideDelay": false,
             "units": "s",
             "reset": "",
             "bytopic": "all",
+            "topic": "topic",
             "outputs": 1,
             "x": 1020,
             "y": 80,
@@ -501,14 +504,14 @@
             "type": "function",
             "z": "0c6e27962f6a2d15",
             "name": "isBuffer?",
-            "func": "let timestamp = msg.next_timestamp;\nlet image = msg.payload;\nmsg.mimetype = \"image/jpeg\";\nlet fps = flow.get(\"speed\")\n\nif(Buffer.isBuffer(image)){\n    node.status({ fill: \"green\", shape: \"dot\", text: env.get(\"id\") + \" | \"+fps+\"/s | \"+timestamp});  \n    msg.rate = env.get(\"limited_stream_rate\")\n    return msg;\n}\nelse{\n    node.status({fill:\"red\",shape:\"dot\",text:timestamp + \" Not an image\"});  \n}",
+            "func": "let fps = context.get(\"fps\") || 0;\n\nif(\"fps\" in msg){\n    context.set(\"fps\", msg.fps);\n    return null;\n}\nelse{\n    let timestamp = msg.next_timestamp;\n    let image = msg.payload;\n    msg.mimetype = \"image/jpeg\";\n\n    if (Buffer.isBuffer(image)) {\n        node.status({ fill: \"green\", shape: \"dot\", text: env.get(\"id\") + \" | \" + fps + \"/s | \" + timestamp });\n        msg.rate = env.get(\"limited_stream_rate\")\n        return msg;\n    }\n    else {\n        node.status({ fill: \"red\", shape: \"dot\", text: timestamp + \" Not an image\" });\n    }\n}\n\n",
             "outputs": 1,
             "noerr": 0,
             "initialize": "",
             "finalize": "",
             "libs": [],
             "x": 680,
-            "y": 260,
+            "y": 300,
             "wires": [
                 [
                     "bbced33d8b96e7c4"
@@ -525,7 +528,7 @@
                     "t": "set",
                     "p": "topic",
                     "pt": "msg",
-                    "to": "stream_id",
+                    "to": "id",
                     "tot": "env"
                 }
             ],
@@ -550,7 +553,7 @@
                 "785ed00d72be5825"
             ],
             "x": 680,
-            "y": 320,
+            "y": 360,
             "wires": [
                 []
             ]
@@ -572,8 +575,8 @@
             "output": "next_timestamp",
             "outputType": "msg",
             "outTz": "Europe/Kiev",
-            "x": 490,
-            "y": 260,
+            "x": 470,
+            "y": 300,
             "wires": [
                 [
                     "785ed00d72be5825"
@@ -611,31 +614,6 @@
             ]
         },
         {
-            "id": "6b3319b437c49d57",
-            "type": "change",
-            "z": "0c6e27962f6a2d15",
-            "name": "",
-            "rules": [
-                {
-                    "t": "set",
-                    "p": "speed",
-                    "pt": "flow",
-                    "to": "payload",
-                    "tot": "msg"
-                }
-            ],
-            "action": "",
-            "property": "",
-            "from": "",
-            "to": "",
-            "reg": false,
-            "x": 700,
-            "y": 40,
-            "wires": [
-                []
-            ]
-        },
-        {
             "id": "852f8b5ccc4f5888",
             "type": "function",
             "z": "0c6e27962f6a2d15",
@@ -655,12 +633,39 @@
             ]
         },
         {
-            "id": "080292118c5508d1",
+            "id": "6eb1a540bff11def",
+            "type": "change",
+            "z": "0c6e27962f6a2d15",
+            "name": "",
+            "rules": [
+                {
+                    "t": "set",
+                    "p": "fps",
+                    "pt": "msg",
+                    "to": "payload",
+                    "tot": "msg"
+                }
+            ],
+            "action": "",
+            "property": "",
+            "from": "",
+            "to": "",
+            "reg": false,
+            "x": 650,
+            "y": 240,
+            "wires": [
+                [
+                    "785ed00d72be5825"
+                ]
+            ]
+        },
+        {
+            "id": "2b9179d915415bee",
             "type": "subflow:0c6e27962f6a2d15",
             "z": "213d881cf0833211",
             "name": "",
-            "x": 240,
-            "y": 660,
+            "x": 700,
+            "y": 540,
             "wires": [
                 [],
                 [],

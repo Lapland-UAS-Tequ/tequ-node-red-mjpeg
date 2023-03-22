@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Node-RED node for tequ-node-red-mjpeg",
   "keywords": [
-    "node-red-nodegen"
+    "node-red-nodegen", 
+    "tequ-ai"
   ],
   "engines": {
     "node": ">=12.0.0"
