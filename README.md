@@ -7,7 +7,7 @@ Provides MJPEG data stream to [AI] Detect subflows.
 
 Run the following command in your Node-RED user directory - typically `~/.node-red`
 
-        npm install Lapland-UAS-Tequ/tequ-node-red-mjpeg
+        npm install tequ-node-red-mjpeg
 
 ## Information
 

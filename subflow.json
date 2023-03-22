@@ -203,13 +203,12 @@
         {
             "name": "password",
             "type": "env",
-            "value": "password",
+            "value": "stream_password",
             "ui": {
                 "type": "input",
                 "opts": {
                     "types": [
-                        "env",
-                        "cred"
+                        "env"
                     ]
                 }
             }
@@ -502,7 +501,7 @@
             "type": "function",
             "z": "0c6e27962f6a2d15",
             "name": "isBuffer?",
-            "func": "let timestamp = msg.next_timestamp;\nlet image = msg.payload;\nmsg.mimetype = \"image/jpeg\";\nlet fps = flow.get(\"speed\")\n\nif(Buffer.isBuffer(image)){\n    node.status({ fill: \"green\", shape: \"dot\", text: env.get(\"stream_id\") + \" | \"+fps+\"/s | \"+timestamp});  \n    msg.rate = env.get(\"limited_stream_rate\")\n    return msg;\n}\nelse{\n    node.status({fill:\"red\",shape:\"dot\",text:timestamp + \" Not an image\"});  \n}",
+            "func": "let timestamp = msg.next_timestamp;\nlet image = msg.payload;\nmsg.mimetype = \"image/jpeg\";\nlet fps = flow.get(\"speed\")\n\nif(Buffer.isBuffer(image)){\n    node.status({ fill: \"green\", shape: \"dot\", text: env.get(\"id\") + \" | \"+fps+\"/s | \"+timestamp});  \n    msg.rate = env.get(\"limited_stream_rate\")\n    return msg;\n}\nelse{\n    node.status({fill:\"red\",shape:\"dot\",text:timestamp + \" Not an image\"});  \n}",
             "outputs": 1,
             "noerr": 0,
             "initialize": "",
@@ -547,8 +546,8 @@
             "z": "0c6e27962f6a2d15",
             "name": "",
             "scope": [
-                "785ed00d72be5825",
-                "dc2a83762d1d2cf4"
+                "dc2a83762d1d2cf4",
+                "785ed00d72be5825"
             ],
             "x": 680,
             "y": 320,
@@ -656,40 +655,16 @@
             ]
         },
         {
-            "id": "e622be8ddf1bd346",
+            "id": "080292118c5508d1",
             "type": "subflow:0c6e27962f6a2d15",
             "z": "213d881cf0833211",
-            "name": "MJPEG",
-            "env": [
-                {
-                    "name": "address",
-                    "value": "192.168.1.64/ISAPI/Streaming/channels/103/httppreview",
-                    "type": "str"
-                },
-                {
-                    "name": "password",
-                    "type": "cred"
-                },
-                {
-                    "name": "stream_url",
-                    "value": "http://192.168.1.64/ISAPI/Streaming/channels/103/httppreview",
-                    "type": "str"
-                },
-                {
-                    "name": "stream_id",
-                    "value": "123",
-                    "type": "str"
-                }
-            ],
-            "x": 400,
-            "y": 460,
+            "name": "",
+            "x": 240,
+            "y": 640,
             "wires": [
                 [],
                 [],
                 []
-            ],
-            "inputLabels": [
-                "command in"
             ]
         }
     ]
