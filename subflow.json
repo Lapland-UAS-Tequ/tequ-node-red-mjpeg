@@ -247,7 +247,7 @@
             "id": "dc2a83762d1d2cf4",
             "type": "multipart-decoder",
             "z": "0c6e27962f6a2d15",
-            "name": "Datasource",
+            "name": "",
             "ret": "bin",
             "url": "",
             "tls": "",
@@ -256,7 +256,7 @@
             "maximum": "2000000",
             "blockSize": 1,
             "enableLog": "off",
-            "x": 310,
+            "x": 330,
             "y": 200,
             "wires": [
                 [
@@ -659,24 +659,12 @@
             ]
         },
         {
-            "id": "b568d5b82373e11d",
+            "id": "2b9179d915415bee",
             "type": "subflow:0c6e27962f6a2d15",
             "z": "213d881cf0833211",
             "name": "",
-            "env": [
-                {
-                    "name": "address",
-                    "value": "192.168.1.206:1880/ui/stream",
-                    "type": "str"
-                },
-                {
-                    "name": "use_basic_auth",
-                    "value": "false",
-                    "type": "bool"
-                }
-            ],
-            "x": 380,
-            "y": 520,
+            "x": 680,
+            "y": 440,
             "wires": [
                 [],
                 [],
