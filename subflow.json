@@ -525,7 +525,7 @@
                     "t": "set",
                     "p": "topic",
                     "pt": "msg",
-                    "to": "stream_id",
+                    "to": "id",
                     "tot": "env"
                 }
             ],
@@ -655,12 +655,24 @@
             ]
         },
         {
-            "id": "080292118c5508d1",
+            "id": "b568d5b82373e11d",
             "type": "subflow:0c6e27962f6a2d15",
             "z": "213d881cf0833211",
             "name": "",
-            "x": 240,
-            "y": 640,
+            "env": [
+                {
+                    "name": "address",
+                    "value": "192.168.1.206:1880/ui/stream",
+                    "type": "str"
+                },
+                {
+                    "name": "use_basic_auth",
+                    "value": "false",
+                    "type": "bool"
+                }
+            ],
+            "x": 480,
+            "y": 460,
             "wires": [
                 [],
                 [],
